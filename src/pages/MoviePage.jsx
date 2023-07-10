@@ -8,7 +8,6 @@ const MoviePage = () => {
 		fetcher
 	);
 	const movies = data?.results || [];
-	console.log(movies);
 	return (
 		<div className="py-10 page-container">
 			<div className="flex mb-10">
