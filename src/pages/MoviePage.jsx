@@ -1,12 +1,30 @@
 import useSWR from 'swr';
 import { fetcher } from '../config';
 import MovieCart from '../components/movie/MovieCart';
+import { useEffect, useState } from 'react';
+import useDebounce from '../hooks/useDebounce';
 
 const MoviePage = () => {
-	const { data } = useSWR(
-		`https://api.themoviedb.org/3/movie/popular?api_key=a47ce0306fa5c2cb2ddf7f640a085e1f`,
-		fetcher
+	const [filter, setFilter] = useState('');
+	const [url, setUrl] = useState(
+		`https://api.themoviedb.org/3/movie/popular?api_key=a47ce0306fa5c2cb2ddf7f640a085e1f`
 	);
+	const filterDebounce = useDebounce(filter, 500);
+	const handleFilterChange = (e) => {
+		setFilter(e.target.value);
+	};
+	const { data } = useSWR(url, fetcher);
+	useEffect(() => {
+		if (filterDebounce) {
+			setUrl(
+				`https://api.themoviedb.org/3/search/movie?api_key=a47ce0306fa5c2cb2ddf7f640a085e1f&query=${filterDebounce}`
+			);
+		} else {
+			setUrl(
+				`https://api.themoviedb.org/3/movie/popular?api_key=a47ce0306fa5c2cb2ddf7f640a085e1f`
+			);
+		}
+	}, [filterDebounce]);
 	const movies = data?.results || [];
 	return (
 		<div className="py-10 page-container">
@@ -16,6 +34,7 @@ const MoviePage = () => {
 						type="text"
 						className="w-full p-4 bg-slate-800 outline-none text-white"
 						placeholder="Type here to search."
+						onChange={(e) => handleFilterChange(e)}
 					/>
 				</div>
 				<button className="p-4 bg-primary text-white">
