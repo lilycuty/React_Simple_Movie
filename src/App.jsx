@@ -5,6 +5,7 @@ import Main from './components/layout/Main';
 import HomePage from './pages/HomePage';
 import Banner from './components/banner/Banner';
 import MoviePage from './pages/MoviePage';
+import MovieDetailPage from './components/movie/MovieDetailPage';
 
 function App() {
 	return (
@@ -23,7 +24,7 @@ function App() {
 					<Route path="/movies" element={<MoviePage></MoviePage>}></Route>
 					<Route
 						path="/movie/:movieId"
-						element={<MoviePage></MoviePage>}
+						element={<MovieDetailPage></MovieDetailPage>}
 					></Route>
 				</Route>
 			</Routes>

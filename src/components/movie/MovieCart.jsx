@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 
+import { useNavigate } from 'react-router-dom';
+
 const MovieCart = ({ item }) => {
-	const { title, vote_average, release_date, poster_path } = item;
+	const { title, vote_average, release_date, poster_path, id } = item;
+	const navigate = useNavigate();
 	return (
 		<div
 			className="movie-card rounded-lg p-3 bg-slate-800 text-white h-full
@@ -18,7 +21,10 @@ const MovieCart = ({ item }) => {
 					<span>{new Date(release_date).getFullYear()}</span>
 					<span>{vote_average}</span>
 				</div>
-				<button className="w-full py-3 px-6 rounded-lg capitalize bg-primary mt-auto">
+				<button
+					className="w-full py-3 px-6 rounded-lg capitalize bg-primary mt-auto"
+					onClick={() => navigate(`/movie/${id}`)}
+				>
 					Watch now
 				</button>
 			</div>
