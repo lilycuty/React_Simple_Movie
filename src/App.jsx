@@ -33,6 +33,7 @@ function App() {
 							path="/movie/:movieId"
 							element={<MovieDetailPage></MovieDetailPage>}
 						></Route>
+						<Route path="*" element={<>Not found</>}></Route>
 					</Route>
 				</Routes>
 			</Suspense>
